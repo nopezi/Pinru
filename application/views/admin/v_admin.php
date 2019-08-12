@@ -28,6 +28,13 @@
 <?php $this->load->view('admin/admin_footer'); ?>
 
 <!-- <script type="text/javascript" src="<?php //echo base_url() ?>assets/js/addons/waktu.js"></script> -->
+<?php if(!empty($pesan)): ?>
+<script>
+swal("Success", "Data berhasil di update", "success").then(function() {
+    window.location = "<?=base_url('admin')?>";
+});
+</script>
+<?php endif; ?>
 <script>
 $(document).ready(function(){
     // setTimeout(function() {
@@ -57,13 +64,13 @@ $(document).ready(function(){
                             '<td>'+data[i].nama_ruangan+'</td>' +
                             '<td>'+data[i].tanggal+'</td>' +
                             '<td>'+data[i].kegiatan+'</td>' +
-                            '<td>'+data[i].waktu_mulai+'</td>' +
-                            '<td>'+data[i].waktu_selesai+'</td>' +
+                            '<td>'+data[i].waktu_mulai+' - '+data[i].waktu_selesai+'</td>' +
+                            // '<td>'+data[i].waktu_selesai+'</td>' +
                             '<td>'+data[i].jumlah_orang+' Orang</td>' +
                             '<td>'+kebutuhan+ '</td>' +
                             '<td>' +
                                 '<a class="btn-floating btn-warning btn-sm btn-rounded" data-toggle="modal" data-target="#editPinjaman'+data[i].id_booking+'"><i class="fas fa-pencil-alt"></i></a>' +
-                                '<a id="'+data[i].id_booking+'" class="hapus_pinjaman btn-floating btn-danger btn-sm btn-rounded"><i class="far fa-trash-alt"></i></a>' +
+                                '<a data-toggle="modal" data-target="#hapusPinjaman'+data[i].id_booking+'" class="hapusPinjaman btn-floating btn-danger btn-sm btn-rounded"><i class="far fa-trash-alt"></i></a>' +
                             '</td>'
                             '</tr>';
                 }
@@ -112,7 +119,7 @@ $(document).ready(function(){
             
             kebutuhan2 += kebutuhan[i]+', ';
         }  
-        console.log(kebutuhan2);
+        // console.log(kebutuhan2);
         if(tanggal == ""){
             var pesan;
             pesan = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
@@ -123,7 +130,7 @@ $(document).ready(function(){
                     '</div>';
             $('#tampil_error').html(pesan);
         }else{
-            console.log(id_ruangan+nama_peminjam+tanggal+' '+kebutuhan+kegiatan);
+            // console.log(id_ruangan+nama_peminjam+tanggal+' '+kebutuhan+kegiatan);
             $.ajax({
                 url : "<?php echo base_url(); ?>/data/tambah_peminjaman?key=nasi", 
                 type: "POST",
@@ -148,7 +155,7 @@ $(document).ready(function(){
                     // window.location.reload();
                     // tampil_peminjam();
                     swal("Success", "Data telah di simpan", "success").then(function() {
-                        window.location = "<?=base_url()?>";
+                        window.location = "<?=base_url('admin')?>";
                     });
                 },
                 error : function(data){
@@ -162,24 +169,17 @@ $(document).ready(function(){
     
     // hapus data peminjam
     $(document).on('click', '.hapus_pinjaman', function(){
+        console.log('masok');
         var row_id = $(this).attr("id");
-        swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then(function() {
-            $.ajax({
-                url     : "<?=base_url()?>/admin/hapus_pinjaman",
-                method  : "POST",
-                data    : {row_id : row_id},
-                success : function(data){
-                        swal("Data Deleted!", "Success", "success").then(function() {
-                            window.location.reload();
-                        });
-                }
-            });
+        $.ajax({
+            url     : "<?=base_url()?>/admin/hapus_pinjaman",
+            method  : "POST",
+            data    : {row_id : row_id},
+            success : function(data){
+                    swal("Data Deleted!", "Success", "success").then(function() {
+                        window.location.reload();
+                    });
+            }
         });
     });
 
@@ -229,7 +229,7 @@ $(document).ready(function(){
             success : function(data){
                 $('#editRule').modal("hide");
                 // window.location.reload();
-                console.log(data);
+                // console.log(data);
                 tampil_peraturan();
             }
         });
@@ -272,7 +272,7 @@ $(document).ready(function(){
         success : function(data){
             var i = 0;
             for(i=0; i < data.length; i++){
-                console.log(data[i].id_booking);
+                // console.log(data[i].id_booking);
                 var input = $('#manual-operations-input3'+data[i].id_booking).pickatime({
                     autoclose: true,
                     'default': 'now'

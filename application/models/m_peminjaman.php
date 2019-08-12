@@ -18,6 +18,10 @@ class m_peminjaman extends CI_Model {
         return $tampil->result();
     }
 
+    function peminjaman_edit($table, $data, $where){
+        $edit = $this->db->update($table, $data, $where);
+    }
+
     function peminjaman_hapus($table, $where){
         return $this->db->delete($table, $where);
     }

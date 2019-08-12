@@ -1,13 +1,13 @@
 <!-- Footer -->
-<footer class="page-footer font-small blue">
+<!-- <footer class="page-footer font-small blue"> -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">&copy; <?=date('Y')?> Copyright:
+  <!-- <div class="footer-copyright text-center py-3">&copy; <?=date('Y')?> Copyright:
      pinru SGM
-  </div>
+  </div> -->
   <!-- Copyright -->
 
-</footer>
+<!-- </footer> -->
 <!-- Footer -->
 
 <!-- JQuery -->

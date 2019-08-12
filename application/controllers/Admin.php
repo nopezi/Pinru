@@ -79,14 +79,17 @@ class Admin extends CI_Controller {
     }
 
     function ruangan(){
+        $data['semua_ruangan'] = $this->m_ruangan->ruangan_list();
         $this->load->view('admin/admin_header');
-        $this->load->view('admin/v_ruangan');
+        $this->load->view('admin/v_ruangan', $data);
     }
 
     function tampil_ruangan(){
-        $output = '';
-        $data = $this->m_ruangan->ruangan_list();
-        echo json_encode($data);
+        $key = $this->input->post('key');
+        if($key == "8799e0aa00bba9e6a0d7050c2c65b6134a3f4865"){
+            $data = $this->m_ruangan->ruangan_list();
+            echo json_encode($data);
+        }
     }
 
     function tampil_ruangan2(){
@@ -168,6 +171,39 @@ class Admin extends CI_Controller {
         $id_booking = $this->input->get('id_peminjam');
         $hasil = $this->m_peminjaman->peminjaman_tampil_id($id_booking);
         echo json_encode($hasil);
+    }
+
+    function edit_pinjaman(){
+       $id_booking    = $this->input->post("id_peminjam");
+       $nama_peminjam = $this->input->post("nama_peminjam");
+       $id_ruangan    = $this->input->post("ruangan");
+       $kegiatan      = $this->input->post("kegiatan");
+       $tanggal       = $this->input->post("tanggal");
+       $jumlah_orang  = $this->input->post("jumlah_orang");
+       $waktu_mulai   = $this->input->post("waktu_mulai");
+       $waktu_selesai = $this->input->post("waktu_selesai");
+       $kebutuhan     = $this->input->post("kebutuhan");
+       $kebutuhan     = implode(",", $kebutuhan);
+
+       $data = array(
+           'id_ruangan'    => $id_ruangan,
+           'nama_peminjam' => $nama_peminjam,
+           'tanggal'       => $tanggal,
+           'kegiatan'      => $kegiatan,
+           'waktu_mulai'   => $waktu_mulai,
+           'waktu_selesai' => $waktu_selesai,
+           'kebutuhan'     => $kebutuhan 
+        );
+
+        $this->m_peminjaman->peminjaman_edit('booking', $data, array('id_booking' => $id_booking));
+        // echo json_encode($data);
+        // echo $id_booking;
+        $pesan['pesan'] = true;
+        $pesan['total_ruangan'] = $this->m_ruangan->total_ruangan();
+        $pesan['peminjaman']    = $this->m_peminjaman->peminjaman_tampil();
+        $this->load->view('admin/admin_header');
+        $this->load->view('admin/v_admin', $pesan);
+        
     }
 
     // function tambah_peminjam(){

@@ -49,7 +49,6 @@ class Home extends CI_Controller {
         $id_ruangan2 = $this->input->get('id_ruangan');
         $data2['data_ruangan'] = $this->m_ruangan->get_ruangan_by_id($id_ruangan2);
         // echo json_encode($data);
-        
 
         $key = $this->input->get('key');
         $id_ruangan    = $this->input->post('id_ruangan');

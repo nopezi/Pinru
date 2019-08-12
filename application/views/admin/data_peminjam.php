@@ -12,7 +12,7 @@
                     <!-- Card body -->
                     <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
                         <div class="card-body">
-                            <a class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="#tambahPinjaman"><b>Tambah</b></a>
+                            <a class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="#tambahPinjaman"><b><i class="fas fa-plus"></i></b></a>
                             <table id="dtHorizontalExample" class="table table-hover table-sm table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -20,8 +20,8 @@
                                         <th>Ruangan</th>
                                         <th>Tanggal Pesan</th>
                                         <th>Kegiatan</th>
-                                        <th>Mulai</th>
-                                        <th>Selesai</th>
+                                        <th>Waktu</th>
+                                        <!-- <th>Selesai</th> -->
                                         <th>Jumlah Tamu</th>
                                         <th>Kebutuhan</th>
                                         <th>Setting</th>
@@ -93,14 +93,14 @@
                         <div class="form-row">
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input name="kebutuhan" class="get_value form-check-input" type="checkbox" id="inlineFormCheckMD" value="Snack">
-                                    <label class="form-check-label" for="inlineFormCheckMD">Snack</label>
+                                    <input name="kebutuhan" class="get_value form-check-input" type="checkbox" id="inlineFormCheckMD" value="Snack Kering">
+                                    <label class="form-check-label" for="inlineFormCheckMD">Snack Kering</label>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input name="kebutuhan" class="get_value form-check-input" type="checkbox" id="inlineFormCheckMD2" value="Kletikan">
-                                    <label class="form-check-label" for="inlineFormCheckMD2">Kletikan</label>
+                                    <input name="kebutuhan" class="get_value form-check-input" type="checkbox" id="inlineFormCheckMD2" value="Snack Basah">
+                                    <label class="form-check-label" for="inlineFormCheckMD2">Snack Basah</label>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -125,18 +125,34 @@
                         
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="submit" id="simpan" class="btn btn-primary btn-sm">Simpan</button>
+                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+                    <button type="submit" id="simpan" class="btn btn-info btn-sm">Save</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- modal tambah pinjam ruangan -->
+    <!-- modal tambah pinjam peminjaman -->
+<?php foreach($peminjaman as $data_hapus_peminjaman): ?>    
+    <!-- modal hapus pinjam peminjaman -->
+    <div class="modal fade" id="hapusPinjaman<?=$data_hapus_peminjaman->id_booking?>" tabindex="1" role="dialog" arial-labelledby="modaledit">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Apakah anda yakin akan menghapus data ini ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-white" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-info hapus_pinjaman" id="<?=$data_hapus_peminjaman->id_booking?>">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal hapus pinjam peminjaman -->
+<?php endforeach; ?>
 
-<?php foreach($peminjaman as $data_peminjaman){ ?>
-    
-    <!-- modal edit pinjam ruangan -->
+<?php foreach($peminjaman as $data_peminjaman): ?>
+    <!-- modal edit pinjam peminjaman -->
     <div class="modal fade" id="editPinjaman<?php echo $data_peminjaman->id_booking; ?>" tabindex="1" role="dialog" arial-labelledby="modaledit">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -147,9 +163,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form_edit_pinjaman">
+                    <form id="form_edit_pinjaman" action="<?=base_url()?>/admin/edit_pinjaman" method="post">
                         <div class="form-row md-form">
                             <div class="col-6 col-md-6">
+                                <input type="hidden" name="id_peminjam" value="<?=$data_peminjaman->id_booking?>">
                                 <input type="text" name="nama_peminjam" class="form-control" id="defaultRegisterFormFirstName" value="<?=$data_peminjaman->nama_peminjam?>" required>
                                 <label for="defaultRegisterFormFirstName">Nama Peminjam</label>
                             </div>
@@ -165,7 +182,7 @@
                             </div>
                             <div class="col-6 col-md-6">
                                 <select name="ruangan" id="" class="mdb-select colorful-select dropdown-primary" required>
-                                    <option value="<?=$data_peminjaman->id_ruangan?>" disabled selected><?=$data_peminjaman->nama_ruangan?></option>
+                                    <option value="<?=$data_peminjaman->id_ruangan?>" selected><?=$data_peminjaman->nama_ruangan?></option>
                                     <?php foreach($ruangan as $list_ruangan): ?>
                                     <option value="<?=$list_ruangan->id_ruangan?>"><?=$list_ruangan->nama_ruangan?></option>
                                     <?php endforeach; ?>
@@ -175,12 +192,18 @@
                         </div>
                         <div class="form-row md-form">
                             <div class="col-6 col-md-6">
-                                <input type="text" id="manual-operations-input3<?php echo $data_peminjaman->id_booking; ?>" class="form-control timepicker" value="<?php echo $data_peminjaman->waktu_mulai; ?>">
+                                <input name="waktu_mulai" type="text" id="manual-operations-input3<?php echo $data_peminjaman->id_booking; ?>" class="form-control timepicker" value="<?php echo $data_peminjaman->waktu_mulai; ?>">
                                 <label for="manual-operations-input3<?php echo $data_peminjaman->id_booking; ?>">Waktu Mulai</label>
                             </div>
                             <div class="col-6 col-md-6">
-                                <input type="text" id="manual-operations-input4<?php echo $data_peminjaman->id_booking; ?>" class="form-control" value="<?php echo $data_peminjaman->waktu_selesai; ?>">
+                                <input name="waktu_selesai" type="text" id="manual-operations-input4<?php echo $data_peminjaman->id_booking; ?>" class="form-control" value="<?php echo $data_peminjaman->waktu_selesai; ?>">
                                 <label for="manual-operations-input4<?php echo $data_peminjaman->id_booking; ?>">Waktu Selesai</label>
+                            </div>
+                        </div>
+                        <div class="form-row md-form">
+                            <div class="col col-md-12">
+                                <label for="kegiatan">Kegiatan</label>
+                                <input type="text" name="kegiatan" id="kegiatan" class="form-control" value="<?=$data_peminjaman->kegiatan?>" required>
                             </div>
                         </div>
                         <label for="">Kebutuhan</label>
@@ -191,67 +214,72 @@
                         $check4 = "";
                         $check5 = "";
 
-                        if(strstr($kebutuhan, "snack")){ 
-                            $check = "checked";    
+                        if($kebutuhan == "snack," || (strstr($kebutuhan, "snack basah"))){ 
+                            $check = "checked";
+                            $nama_kebutuhan = "Snack Basah";    
                         }
 
-                        if((strstr($kebutuhan, "kletikan"))){
+                        if((strstr($kebutuhan, "kletikan")) || (strstr($kebutuhan, "snack kering"))){
                             $check2 = "checked";
+                            $nama_kebutuhan2 = "Snack Kering";
                         }
                         
                         if(strstr($kebutuhan, "lunch")){
                             $check3 = "checked";
+                            $nama_kebutuhan3 = "Lunch";
                         }
 
                         if(strstr($kebutuhan, "minum")){
                             $check4 = "checked";
+                            $nama_kebutuhan4 = "Minum";
                         }
 
                         if(strstr($kebutuhan, "buah")){
                             $check5 = "checked";
+                            $nama_kebutuhan5 = "Buah";
                         }
                         
                         ?>
                         <div class="form-row">
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheckMDedit<?php echo $data_peminjaman->id_booking; ?>" <?=$check?>>
-                                    <label class="form-check-label" for="inlineFormCheckMDedit<?php echo $data_peminjaman->id_booking; ?>">Snack</label>
+                                    <input name="kebutuhan[]" class="form-check-input" type="checkbox" id="inlineFormCheckMDedit<?php echo $data_peminjaman->id_booking; ?>" value="Snack Basah" <?=$check?>>
+                                    <label class="form-check-label" for="inlineFormCheckMDedit<?php echo $data_peminjaman->id_booking; ?>">Snack Basah</label>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheckMDedit2<?php echo $data_peminjaman->id_booking; ?>" <?=$check2?>>
-                                    <label class="form-check-label" for="inlineFormCheckMDedit2<?php echo $data_peminjaman->id_booking; ?>">Kletikan</label>
+                                    <input name="kebutuhan[]" class="form-check-input" type="checkbox" id="inlineFormCheckMDedit2<?php echo $data_peminjaman->id_booking; ?>" value="Snack Kering" <?=$check2?>>
+                                    <label class="form-check-label" for="inlineFormCheckMDedit2<?php echo $data_peminjaman->id_booking; ?>">Snack Kering</label>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheckMDedit3<?php echo $data_peminjaman->id_booking; ?>" <?=$check3?>>
-                                    <label class="form-check-label" for="inlineFormCheckMDedit3<?php echo $data_peminjaman->id_booking; ?>">Lounch</label>
+                                    <input name="kebutuhan[]" class="form-check-input" type="checkbox" id="inlineFormCheckMDedit3<?php echo $data_peminjaman->id_booking; ?>" value="Lunch" <?=$check3?>>
+                                    <label class="form-check-label" for="inlineFormCheckMDedit3<?php echo $data_peminjaman->id_booking; ?>">Lunch</label>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheckMDedit4<?php echo $data_peminjaman->id_booking; ?>" <?=$check4?>>
+                                    <input name="kebutuhan[]" class="form-check-input" type="checkbox" id="inlineFormCheckMDedit4<?php echo $data_peminjaman->id_booking; ?>" value="Minum" <?=$check4?>>
                                     <label class="form-check-label" for="inlineFormCheckMDedit4<?php echo $data_peminjaman->id_booking; ?>">Minum</label>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input class="form-check-input" type="checkbox" id="inlineFormCheckMDedit4<?php echo $data_peminjaman->id_booking; ?>" <?=$check5?>>
-                                    <label class="form-check-label" for="inlineFormCheckMDedit4<?php echo $data_peminjaman->id_booking; ?>">Buah</label>
+                                    <input name="kebutuhan[]" class="form-check-input" type="checkbox" id="inlineFormCheckMDedit5<?php echo $data_peminjaman->id_booking; ?>" value="Buah" <?=$check5?>>
+                                    <label class="form-check-label" for="inlineFormCheckMDedit5<?php echo $data_peminjaman->id_booking; ?>">Buah</label>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" id="submit" class="btn btn-primary btn-sm">Simpan</button>
+                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info btn-sm">Update</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- modal edit pinjam ruangan -->
-<?php } ?>
+    <!-- modal edit pinjam peminjaman -->
+<?php endforeach; ?>
