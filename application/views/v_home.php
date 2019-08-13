@@ -24,6 +24,11 @@
     </div>
     <?php endif; ?>
     <div class="row">
+    <?php if(empty($ruangan)): ?>
+    <div class="col-12">
+        <p class="text-center text-black-50">Ruangan yang anda cari, tidak ada dalam daftar</p>
+    </div>
+    <?php endif; ?>
     <?php foreach($ruangan as $data_ruangan): ?>
         <div class="col-12 col-md-6 col-lg-4 mb-3">
             <a data-toggle="modal" data-target="#detailRuangan" class="tombolDetailRuangan" id="<?=$data_ruangan->id_ruangan;?>">
@@ -84,7 +89,7 @@ $('.tombolDetailRuangan').on('click', function(){
                     var lk = "";
                     // console.log(data.fasilitas.length);
                     for(i=0; i < data.fasilitas.length; i++){
-                        lk += '<div class="col-6 col-md-6 col-lg-6">' +
+                        lk += '<div class="col-6 col-md-6 col-lg-6 text-black-50">' +
                               '<i class="fas fa-check text-warning"></i> '+ data.fasilitas[i] +
                               '</div>';
                     }
@@ -96,9 +101,10 @@ $('.tombolDetailRuangan').on('click', function(){
                     html = '<div class="view view-cascade zoom">' +
                             '<img src="<?=base_url()?>/assets/gambar/'+data.foto_ruangan+'" class="card-img-top img-responsive rounded-lg mb-3" alt="photo">' +
                             '</div>' +
-                            '<p>'+data.keterangan+'</p>' +
+                            '<p class="h6">Description</p>' +
+                            '<p class="text-black-50">'+data.keterangan+'</p>' +
                             '<p class="h6">Capacity</p>' +
-                            '<p>'+data.kapasitas+' persons</p>' +
+                            '<p class="text-black-50">'+data.kapasitas+' persons</p>' +
                             '<p class="h6">Facilities</p>' +
                             '<p>' +
                             '<div class="row">' +

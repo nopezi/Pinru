@@ -137,12 +137,12 @@
                         <div class="card-header" role="tab" id="headingOne1">
                         <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
                             aria-controls="collapseOne1">
-                            <h4 class="mb-0 text-danger text-center"><i class="fas fa-info-circle"></i> <b>Meeting Rule</b><i class="fas fa-angle-down rotate-icon"></i></h4>
+                            <h4 class="mb-0 text-black-50 text-center"><i class="fas fa-info-circle"></i> <b>Meeting Rule</b><i class="fas fa-angle-down rotate-icon"></i></h4>
                         </a>
                         </div>
                         <!-- Card body -->
                         <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
-                            <div class="card-body text-danger">
+                            <div class="card-body text-black-50">
                                 <!-- <?//=//$peraturan[0]->rule?> -->
                                 <p class="h6"><i class="fas fa-clock"></i> Tepat Waktu</p>
                                 <p class="h6"><i class="fas fa-users"></i> Mulai dengan Wise dan Foqual Contact</p>
