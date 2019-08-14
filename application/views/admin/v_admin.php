@@ -92,7 +92,6 @@ $(document).ready(function(){
             }
 
         });
-        // window.setTimeout(tampil_peminjam, 1000);
     }
 
     // tambah peminjam

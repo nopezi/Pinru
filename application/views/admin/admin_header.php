@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- <meta http-equiv="refresh" content="5" /> -->
-    <title>Admin</title>
+    <title>Meeting Room Reservation</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/fontawesome-free-5.10.1-web/css/all.css">
     <!-- Bootstrap core CSS -->
