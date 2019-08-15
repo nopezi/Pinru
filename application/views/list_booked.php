@@ -13,6 +13,7 @@
             </thead>
             
             <tbody>
+                <?php rsort($peminjaman); ?>
             <?php foreach($peminjaman as $data_peminjaman): ?>
                 <tr>
                     <td><?=$data_peminjaman->nama_ruangan?></td>

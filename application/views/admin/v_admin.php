@@ -4,7 +4,7 @@
         <div class="col-md-4">
         <div class="card">
             <div class="card-body text-center">
-                <?=tanggal()?> //
+                <?//=tanggal()?> //
                 <span id="jam"></span> : <span id="menit"></span> : <span id="detik"></span>
             </div>
         </div>

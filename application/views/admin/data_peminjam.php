@@ -157,7 +157,7 @@
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="modal-title" id="myModalLabel">Ubah data Peminjam <?php echo $kebutuhan = strtolower(str_replace(",", "", $data_peminjaman->kebutuhan));?></p>
+                    <p class="modal-title" id="myModalLabel">Ubah data Peminjam <?php $kebutuhan = strtolower(str_replace(",", "", $data_peminjaman->kebutuhan));?></p>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
