@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Meeting Room Reservation</title>
+    <link rel='icon' href='<?=base_url()?>assets/gambar/favicon.jpeg' type='image/x-icon' />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/fontawesome-free-5.10.1-web/css/all.css">
     <!-- Bootstrap core CSS -->

@@ -19,15 +19,15 @@
     <?php if(!empty($tanda)): ?>
     <div class="row">
         <div class="col-md-12">
-        <a href="<?=base_url()?>" class="btn btn-sm btn-info">Back</a>
+            <a href="<?=base_url()?>" class="btn btn-sm btn-info">Back</a>
         </div>
     </div>
     <?php endif; ?>
     <div class="row">
     <?php if(empty($ruangan)): ?>
-    <div class="col-12">
-        <p class="text-center text-black-50">Ruangan yang anda cari, tidak ada dalam daftar</p>
-    </div>
+        <div class="col-12">
+            <p class="text-center text-black-50">Ruangan yang anda cari, tidak ada dalam daftar</p>
+        </div>
     <?php endif; ?>
     <?php foreach($ruangan as $data_ruangan): ?>
         <div class="col-12 col-md-6 col-lg-4 mb-3">
