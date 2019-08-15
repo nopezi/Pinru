@@ -1,4 +1,4 @@
-<div class="container" style="margin-top:100px">
+<div class="container" style="margin-top:100px; margin-bottom: -100px">
     <div class="row mb-1">
         <?php $this->load->view('list_booked'); ?>
     </div>
@@ -32,7 +32,7 @@
     <?php foreach($ruangan as $data_ruangan): ?>
         <div class="col-12 col-md-6 col-lg-4 mb-3">
             <a data-toggle="modal" data-target="#detailRuangan" class="tombolDetailRuangan" id="<?=$data_ruangan->id_ruangan;?>">
-            <div class="view zoom waves-effect waves-light">
+            <div class="view zoom waves-effect rounded z-depth-2 waves-light">
             <img src="<?=base_url()?>assets/gambar/<?=$data_ruangan->foto_ruangan?>" width="392" height="192" class="" alt="placeholder">
                 <div class="mask pattern-8 flex-left ml-4 mt-3 mr-4">
                     <p class="h6 white-text text-left"><?=$data_ruangan->nama_ruangan?></p>
@@ -46,6 +46,7 @@
         </div>
     <?php endforeach; ?>
     </div>
+    
 </div>
 
 <div class="modal fade" id="detailRuangan" tabindex="1" role="dialog" arial-labelledby="modaledit">

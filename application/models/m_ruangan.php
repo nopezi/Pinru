@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class m_ruangan extends CI_Model {
 
     function ruangan_list(){
-        $tampil = $this->db->query("SELECT * FROM ruangan");
+        $tampil = $this->db->query("SELECT * FROM ruangan ORDER BY id_ruangan DESC");
         return $tampil->result();
     }
 

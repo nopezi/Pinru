@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class m_peminjaman extends CI_Model {
 
     function peminjaman_tampil(){
-        $tampil = $this->db->query("SELECT ruangan.nama_ruangan, booking.id_ruangan, booking.id_booking, booking.nama_peminjam, booking.tanggal, booking.kegiatan, booking.waktu_mulai, booking.waktu_selesai, booking.jumlah_orang, booking.kebutuhan FROM booking, ruangan WHERE booking.id_ruangan=ruangan.id_ruangan");
+        $tampil = $this->db->query("SELECT ruangan.nama_ruangan, booking.id_ruangan, booking.id_booking, booking.nama_peminjam, booking.tanggal, booking.kegiatan, booking.waktu_mulai, booking.waktu_selesai, booking.jumlah_orang, booking.kebutuhan FROM booking, ruangan WHERE booking.id_ruangan=ruangan.id_ruangan ORDER BY booking.id_booking DESC");
         return $tampil->result();
     }
 
