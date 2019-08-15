@@ -24,10 +24,7 @@
                 </div>
             </div>
         </div>
-<?php echo form_open_multipart('data/edit_ruangan') ?>
-<input type="file" name="userfile">
-<button type="submit">Update</button>
-<?php echo form_close();?>
+
     </div>
 
     <!-- Modal tambah data -->
@@ -187,19 +184,17 @@
 <!-- container -->
 
 <?php $this->load->view('admin/admin_footer'); ?>
-<?php if($this->session->flashdata('pesan_edit') == "ada"): ?>
-<?php $this->session->sess_destroy(); ?>
-<script>
+<?php //if(!empty($pesan_edit)): ?>
+<?php //echo $pesan_edit; ?>
+<!-- <script>
 swal("Data Updated", "Succes", "success");
-</script>
-<?php endif; ?>
+</script> -->
+<?php //endif; ?>
 <script>
     
 $(document).ready(function(){
 
     function bacaGambar2(input) {
-        console.log('data input'+input);
-        
         if (input.files && input.files[0]) {
             var reader = new FileReader();
         
@@ -214,7 +209,6 @@ $(document).ready(function(){
                             var i = 0;
                             for(i=0; i < data.length; i++){
                                 $('#gambar_nodin'+data[i].id_ruangan).attr('src', e.target.result);
-                                console.log($('#gambar_nodin'+data[i].id_ruangan).attr('src', e.target.result));
                             }
                         }
                 });
@@ -234,7 +228,6 @@ $(document).ready(function(){
                 var i = 0;
                 for(i=0; i < data.length; i++){
                     $("#preview_edit_gambar"+data[i].id_ruangan).change(function(){
-                        console.log('data edit');
                         bacaGambar2(this);
                     });
                 }
@@ -243,8 +236,6 @@ $(document).ready(function(){
 
 
     function bacaGambar(input) {
-        console.log('data input'+input);
-        
         if (input.files && input.files[0]) {
             var reader = new FileReader();
         
@@ -257,7 +248,6 @@ $(document).ready(function(){
     }
 
     $("#preview_gambar").change(function(){
-        console.log('data input ruangan');
         bacaGambar(this);
     });
 

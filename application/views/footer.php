@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="page-footer font-small pt-4" style="margin-top: 161px">
+<footer class="page-footer font-small pt-4" style="margin-top: 244px">
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© <?=date('Y')?> Meeting Room Reservation

@@ -80,6 +80,9 @@ class Admin extends CI_Controller {
 
     function ruangan(){
         $data['semua_ruangan'] = $this->m_ruangan->ruangan_list();
+        // if(!empty($this->edit_ruangan())){
+        //     $data['pesan_edit'] = $this->edit_ruangan();
+        // }
         $this->load->view('admin/admin_header');
         $this->load->view('admin/v_ruangan', $data);
     }
@@ -183,12 +186,21 @@ class Admin extends CI_Controller {
                 'foto_ruangan' => $foto_ruangan,
                 'keterangan' => $keterangan 
             );
-            // $pesan['semua_ruangan'] = $this->m_ruangan->ruangan_list();
-            $pesan_edit = true;
+            
+            echo '<script type="text/javascript" src="'.base_url().'assets/js/jquery.js"></script>
+            <script src="'.base_url().'assets/js/sweetalert.min.js"></script>
+            <script>
+            $(document).ready(function() { 
+                swal("Data Updated!", "Success", "success").then(function() {
+                    window.location = "'.base_url('admin/ruangan').'";
+                });
+            });
+            </script>';
             $this->m_ruangan->ruangan_edit('ruangan', $data, array('id_ruangan' => $id_ruangan));
             // $this->load->view('admin/ruangan', $pesan);
-            $this->session->set_flashdata('pesan_edit', 'ada');
-            $this->ruangan();
+            // $this->session->set_flashdata('pesan_edit', 'ada');
+            $pesan_edit = true;
+            // $this->ruangan();
         }else if(empty($foto_ruangan)){
             $this->upload->do_upload("userfile");
             // echo "datanya". print_r($this->upload->data());
@@ -196,15 +208,20 @@ class Admin extends CI_Controller {
                 'nama_ruangan' => $nama_ruangan,
                 'kapasitas' => $kapasitas,
                 'fasilitas' => $fasilitas,
-                'foto_ruangan2' => $foto_ruangan_lama,
+                'foto_ruangan' => $foto_ruangan_lama,
                 'keterangan' => $keterangan 
             );
-            
-            $pesan['semua_ruangan'] = $this->m_ruangan->ruangan_list();
-            $pesan['sudah_edit'] = true;
+    
+            echo '<script type="text/javascript" src="'.base_url().'assets/js/jquery.js"></script>
+            <script src="'.base_url().'assets/js/sweetalert.min.js"></script>
+            <script>
+            $(document).ready(function() { 
+                swal("Data Updated!", "Success", "success").then(function() {
+                    window.location = "'.base_url('admin/ruangan').'";
+                });
+            });
+            </script>';
             $this->m_ruangan->ruangan_edit('ruangan', $data, array('id_ruangan' => $id_ruangan));
-            // $this->load->view('admin/ruangan', $pesan);
-            $this->ruangan();
         }
     }
 
