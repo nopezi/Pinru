@@ -17,7 +17,7 @@
     <!-- jquery data table -->
     <link href="<?php echo base_url() ?>assets/css/addons/datatables.min.css" rel="stylesheet">
     <!-- font -->
-    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto"rel="stylesheet">
     <link rel="stylesheet" href="<?=base_url()?>assets/css/styles.scss">
 </head>
 
