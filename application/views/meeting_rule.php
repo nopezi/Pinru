@@ -12,9 +12,9 @@
                         <div class="col-sm-11"><p class="h6"> Mulai dengan Wise dan Foqual Contact</p></div>
                         <div class="col-sm-1"><i class="fas fa-chair"></i></div>
                         <div class="col-sm-11"><p class="h6"> Rapihkan Meja dan Kursi</p></div>
-                        <div class="col-sm-1"><i class="fas fa-broom"></i></div>
+                        <div class="col-sm-1"><i class="fas fa-trash-alt"></i></div>
                         <div class="col-sm-11"><p class="h6 text-left"> Bersihkan Meja & Buanglah sampah pada tempatnya</p></div>
-                        <div class="col-sm-1"><i class="fas fa-power-off"></i></div>
+                        <div class="col-sm-1"><i class="fas fa-plug"></i></div>
                         <div class="col-sm-11"><p class="h6"> Matikan Lampu, AC dan LCD / Monitor</p></div>
                     </div>
                 </div>
