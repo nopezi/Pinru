@@ -39,6 +39,11 @@
         <a class="nav-link" href="<?=base_url('home/meeting_rule')?>">Meeting Rule</a>
       </li>
     </ul>
+    <ul class="navbar-nav nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link" href="https://api.whatsapp.com/send?phone=6283867140788" target="_blank"><i class="fab fa-whatsapp"></i>6283867140788</a>
+        </li>
+    </ul>
   </div>
 </nav>
 <body>

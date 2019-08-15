@@ -24,7 +24,10 @@
                 </div>
             </div>
         </div>
-        
+<?php echo form_open_multipart('data/edit_ruangan') ?>
+<input type="file" name="userfile">
+<button type="submit">Update</button>
+<?php echo form_close();?>
     </div>
 
     <!-- Modal tambah data -->
@@ -100,39 +103,43 @@
     <div class="modal fade" id="editData<?=$data_edit_ruangan->id_ruangan?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header"><p class="h5">Edit data Ruangan</p></div>
+                <div class="modal-header"><p class="h5">Edit data Ruangan <?=$data_edit_ruangan->nama_ruangan?></p></div>
                 <div class="modal-body">
-                <form id="form_ruangan" name="myForm">
+                <?php echo form_open_multipart('admin/edit_ruangan') ?>
                         <p id="tampil_error"></p>
                         <div class="form-row md-form mb-2">
                             <div class="col-7 col-md-7">
                                 <label for="namaRuangan">Meeting Room Name</label>
-                                <input type="text" name="nama_ruangan" id="namaRuangan" class="form-control" aria-describedby="inputGroupPrepend23" required>
+                                <input type="hidden" name="id_ruangan" value="<?=$data_edit_ruangan->id_ruangan?>">
+                                <input type="hidden" name="foto_ruangan_lama" value="<?=$data_edit_ruangan->foto_ruangan?>">
+                                <input type="text" name="nama_ruangan" id="namaRuangan" class="form-control" aria-describedby="inputGroupPrepend23" value="<?=$data_edit_ruangan->nama_ruangan?>" required>
                                 
                             </div>
                             <div class="col-3 col-md-3">
                                 <label for="kapasitas">Capacity</label>
-                                <input type="number" name="kapasitas" id="kapasitas" class="form-control" required>
+                                <input type="number" name="kapasitas" id="kapasitas" class="form-control" value="<?=$data_edit_ruangan->kapasitas?>" required>
                             </div>
                             <div class="col-2 col-md-2 mt-1"><p>Persons</p></div>
                         </div>
                         <div class="form-row md-form">
                             <!-- <label for="fasilitas">Fasilitas</label>  -->
                             <!-- <div class="chips chips-placeholder" name="fasilitas" id="fasilitas" required></div> -->
-                            <input type="" name="fasilitas" id="fasilitas" class="form-control chips chips-placeholder" data-role="tagsinput" required>Facilities
+                            <input type="" name="fasilitas" id="fasilitas" class="form-control chips chips-placeholder" data-role="tagsinput" value="<?=$data_edit_ruangan->fasilitas?>" required>Facilities
                         </div>
                         <div class="form-row md-form">
                             <div class="file-field">
                                 <div class="mb-2">
-                                    <img src="<?=base_url()?>assets/gambar/<?=$data_edit_ruangan->foto_ruangan?>" id="gambar_nodin" height="100px" width="100px" class="img-responsive img-fluid z-depth-1-half avatar-pic" alt="Preview Gambar">
+                                    <img src="<?=base_url()?>assets/gambar/<?=$data_edit_ruangan->foto_ruangan?>" id="gambar_nodin<?=$data_edit_ruangan->id_ruangan?>" height="100px" width="100px" class="img-responsive img-fluid z-depth-1-half avatar-pic" alt="Preview Gambar2">
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn btn-mdb-color btn-sm btn-rounded float-left">
                                         <span>Image Room</span>
-                                        <input type="file" name="foto_ruangan" id="preview_gambar" required>
+                                        <input type="file" name="foto_ruangan<?=$data_edit_ruangan->id_ruangan?>" id="preview_edit_gambar<?=$data_edit_ruangan->id_ruangan?>">
+                                        
                                     </div>
                                 </div>
                             </div>
+                            
                             <!-- <div class="col-md-6">
                                 <input type="file" name="foto_ruangan" class="form-control" id="preview_gambar">
                                 <img src="#" id="gambar_nodin" width="400" alt="Preview Gambar" />
@@ -141,18 +148,20 @@
                         <div class="form-row md-form mt-2 mb-2">
                             <div class="col-md-12">
                                 <label for="keterangan">Description</label>
-                                <textarea name="keterangan" class="md-textarea form-control" id="keterangan"  rows="2" required></textarea>
+                                <textarea name="keterangan" class="md-textarea form-control" id="keterangan"  rows="2" required><?=$data_edit_ruangan->keterangan?></textarea>
                             </div>
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-white btn-sm" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-info btn-sm edit_ruangan" id="">Update</button>
-                    </form>
+                    <button type="submit" class="btn btn-info btn-sm edit_ruangan" id="">Update</button>
+                    <!-- </form> -->
+                    <?php echo form_close();?>
                 </div>
             </div>
         </div>
     </div>
+    
     <!-- modal edit ruangan -->
 <?php endforeach; ?>
 
@@ -178,9 +187,60 @@
 <!-- container -->
 
 <?php $this->load->view('admin/admin_footer'); ?>
-
+<?php if($this->session->flashdata('pesan_edit') == "ada"): ?>
+<?php $this->session->sess_destroy(); ?>
 <script>
+swal("Data Updated", "Succes", "success");
+</script>
+<?php endif; ?>
+<script>
+    
 $(document).ready(function(){
+
+    function bacaGambar2(input) {
+        console.log('data input'+input);
+        
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+        
+            reader.onload = function (e) {
+                $.ajax({
+                    type  : 'post',
+                        url   : '<?php echo base_url() ?>/admin/tampil_ruangan',
+                        async : true,
+                        dataType : 'json',
+                        data : {key : '8799e0aa00bba9e6a0d7050c2c65b6134a3f4865'},
+                        success : function(data){
+                            var i = 0;
+                            for(i=0; i < data.length; i++){
+                                $('#gambar_nodin'+data[i].id_ruangan).attr('src', e.target.result);
+                                console.log($('#gambar_nodin'+data[i].id_ruangan).attr('src', e.target.result));
+                            }
+                        }
+                });
+            }
+        
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $.ajax({
+        type  : 'post',
+            url   : '<?php echo base_url() ?>/admin/tampil_ruangan',
+            async : true,
+            dataType : 'json',
+            data : {key : '8799e0aa00bba9e6a0d7050c2c65b6134a3f4865'},
+            success : function(data){
+                var i = 0;
+                for(i=0; i < data.length; i++){
+                    $("#preview_edit_gambar"+data[i].id_ruangan).change(function(){
+                        console.log('data edit');
+                        bacaGambar2(this);
+                    });
+                }
+        }
+    });
+
 
     function bacaGambar(input) {
         console.log('data input'+input);
@@ -197,8 +257,11 @@ $(document).ready(function(){
     }
 
     $("#preview_gambar").change(function(){
+        console.log('data input ruangan');
         bacaGambar(this);
     });
+
+    
 
     tampil_data_ruangan();
     $('.dataTables_length').addClass('bs-select');
@@ -241,15 +304,17 @@ $(document).ready(function(){
                             '</tr>';
                 }
                 $('#tampil_data').html(html);
-                $('#dtHorizontalExample').DataTable({
+                $('#dtHorizontalExample').DataTable(
+                    {
                     "scrollX" : true,
-                    "scrollY" : false,
-                    "searching": true,
+                    "searching": false,
                     // "bPaginate": false,
-                    "bLengthChange": true,
-                    "bFilter": true,
-                    "bInfo": true,
-                    "bAutoWidth": true
+                    "bDestroy": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": true,
+                    
                 });
             }
         });   
@@ -313,7 +378,6 @@ $(document).ready(function(){
                 swal("Data Deleted!", "Success", "success").then(function() {
                     window.location.reload();
                 });
-                tampil_data_ruangan();
             }
         });
     });

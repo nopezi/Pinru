@@ -22,13 +22,13 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <!-- Material form login -->
-        <div class="col-md-4">
+        <div class="col-10 col-md-6 col-lg-4">
             <div class="card">
                 <div class="card-header info-color white-text ">
                     
                     <ul class="list-inline">
                         <li class="list-inline-item"><h6><i class="fas fa-arrow-left"></i></h5></li>
-                        <li class="list-inline-item"><a class="text-white" href="<?=base_url()?>">Back Home</a></li>
+                        <li class="list-inline-item"><a class="text-white" href="<?=base_url()?>">Back</a></li>
                     </ul>
                     <h5 class="text-center"><strong>Sign in</strong></h5>
                 </div>

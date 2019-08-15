@@ -35,6 +35,7 @@ class Data extends CI_Controller {
         }
     }
 
+    
     function tambah_peminjaman_user(){
         $key = $this->input->get('key');
         $id_ruangan    = $this->input->post('id_ruangan');

@@ -1,23 +1,6 @@
 <!-- Footer -->
 <footer class="page-footer font-small pt-4" style="margin-top: 161px">
 
-  <!-- Footer Elements -->
-  <div class="container">
-
-    <!-- Social buttons -->
-    <ul class="list-unstyled list-inline text-center text-info">
-      <li class="list-inline-item">
-        <a href="https://api.whatsapp.com/send?phone=6283867140788" class="btn-floating btn-whatsapp mx-1">
-          <i class="fab fa-whatsapp"> </i>
-        </a>
-      </li>
-      
-    </ul>
-    <!-- Social buttons -->
-
-  </div>
-  <!-- Footer Elements -->
-
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© <?=date('Y')?> Meeting Room Reservation
     <!-- <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a> -->

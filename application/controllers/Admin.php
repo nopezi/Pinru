@@ -156,6 +156,58 @@ class Admin extends CI_Controller {
         
     }
 
+    function edit_ruangan(){
+        $id_ruangan   = $this->input->post('id_ruangan');
+        $nama_ruangan = $this->input->post('nama_ruangan');
+        $kapasitas    = $this->input->post('kapasitas');
+        $fasilitas    = $this->input->post('fasilitas');
+        $keterangan   = $this->input->post('keterangan');
+        $foto_ruangan_lama = $this->input->post('foto_ruangan_lama');
+
+        $config['upload_path']   = "./assets/gambar";
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name']  = TRUE;
+        
+        $this->load->library('upload', $config);
+        $foto_field = "foto_ruangan".$id_ruangan;
+        
+
+        if($this->upload->do_upload($foto_field)){
+            $data = array('upload_data' => $this->upload->data());
+            $foto_ruangan = $data['upload_data']['file_name'];
+
+            $data = array(
+                'nama_ruangan' => $nama_ruangan,
+                'kapasitas' => $kapasitas,
+                'fasilitas' => $fasilitas,
+                'foto_ruangan' => $foto_ruangan,
+                'keterangan' => $keterangan 
+            );
+            // $pesan['semua_ruangan'] = $this->m_ruangan->ruangan_list();
+            $pesan_edit = true;
+            $this->m_ruangan->ruangan_edit('ruangan', $data, array('id_ruangan' => $id_ruangan));
+            // $this->load->view('admin/ruangan', $pesan);
+            $this->session->set_flashdata('pesan_edit', 'ada');
+            $this->ruangan();
+        }else if(empty($foto_ruangan)){
+            $this->upload->do_upload("userfile");
+            // echo "datanya". print_r($this->upload->data());
+            $data = array(
+                'nama_ruangan' => $nama_ruangan,
+                'kapasitas' => $kapasitas,
+                'fasilitas' => $fasilitas,
+                'foto_ruangan2' => $foto_ruangan_lama,
+                'keterangan' => $keterangan 
+            );
+            
+            $pesan['semua_ruangan'] = $this->m_ruangan->ruangan_list();
+            $pesan['sudah_edit'] = true;
+            $this->m_ruangan->ruangan_edit('ruangan', $data, array('id_ruangan' => $id_ruangan));
+            // $this->load->view('admin/ruangan', $pesan);
+            $this->ruangan();
+        }
+    }
+
     function get_ruangan(){
         $id_ruangan = $this->input->get('id_ruangan');
         $data = $this->m_ruangan->get_ruangan_by_id($id_ruangan);
@@ -257,22 +309,22 @@ class Admin extends CI_Controller {
         $result = $this->m_peraturan->peraturan_edit('peraturan', $data, array('id_rule' => $id_rule));
     }
 
-    function edit_ruangan(){
-        $nomor_ruangan = $this->input->post('no_ruangan_edit');
-        $nama_ruangan  = $this->input->post('nama_ruangan_edit');
-        $status        = $this->input->post('status_edit');
-        $keterangan    = $this->input->post('keterangan_edit');
-        $id_ruangan    = $this->input->post('id_ruangan_edit');
+    // function edit_ruangan(){
+    //     $nomor_ruangan = $this->input->post('no_ruangan_edit');
+    //     $nama_ruangan  = $this->input->post('nama_ruangan_edit');
+    //     $status        = $this->input->post('status_edit');
+    //     $keterangan    = $this->input->post('keterangan_edit');
+    //     $id_ruangan    = $this->input->post('id_ruangan_edit');
 
-        $data = array(
-            'no_ruangan'   => $nomor_ruangan,
-            'nama_ruangan' => $nama_ruangan,
-            'status'       => $status,
-            'keterangan'   => $keterangan 
-        );
+    //     $data = array(
+    //         'no_ruangan'   => $nomor_ruangan,
+    //         'nama_ruangan' => $nama_ruangan,
+    //         'status'       => $status,
+    //         'keterangan'   => $keterangan 
+    //     );
 
-        $result = $this->m_ruangan->ruangan_edit('ruangan', $data, array('id_ruangan' => $id_ruangan));
-    }
+    //     $result = $this->m_ruangan->ruangan_edit('ruangan', $data, array('id_ruangan' => $id_ruangan));
+    // }
 
     function hapus_pinjaman(){
         $id_booking = $this->input->post('row_id');
