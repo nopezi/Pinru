@@ -135,6 +135,7 @@ $('#dtHorizontalExample').DataTable({
     "bFilter": false,
     "bInfo": false,
     "bAutoWidth": true,
+    // "order": ([[ 3, "desc" ]])
 });
 $('.dataTables_length').addClass('bs-select');
 

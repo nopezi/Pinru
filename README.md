@@ -1,1 +1,1 @@
-# Pinru
+Sistem informasi peminjaman ruangan
